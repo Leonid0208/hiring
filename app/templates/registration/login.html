@@ -1,0 +1,150 @@
+{% extends 'app/base.html' %}
+{% load poll_extras %}
+{% block content %}
+    <div class="wrapper">
+
+
+
+
+
+    <nav class="nav navbar navbar-default" role="navigation">
+      <div class="container">
+
+        <div class="navbar-header " style="float: left;">
+          <a href="/" class="navbar-brand">djinni.co</a>
+        </div>
+
+      </div> <!-- ./container -->
+    </nav>
+
+
+
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 loginpage-wrapper">
+
+      <div class="page-header">
+        <h1>
+
+            Log In to Djinni
+
+
+        </h1>
+      </div>
+
+      <div class="row">
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="col-sm-6 col-login-email">
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+                <div class="form-group">
+{#                  {{ form.username|htmlattributes:'class: form-control, type:email, name:email, placeholder:Email, id:email' }}#}
+{#                    {{ form }}#}
+                    <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Email" id="id_username">
+
+
+                  <p class="help-block" style="display: none;" id="p_empty_email">
+                    <small class="text-danger">
+                      Please fill this field.
+                    </small>
+                  </p>
+                </div>
+                <div class="form-group">
+{#                  {{ form.password|htmlattributes:'class: form-control, type:password, name:password, placeholder:Password, id:password' }}#}
+                    <input class="form-control" type="password" name="password" autocomplete="current-password" placeholder="Password" id="id_password">
+                  <p class="help-block" style="display: none;" id="p_empty_password">
+                    <small class="text-danger">
+                      Please fill this field.
+                    </small>
+                  </p>
+                </div>
+
+
+
+                <div>
+                  <button class="btn btn-primary btn-lg" type="submit" style="min-width: 100px;">
+
+                      Log In
+
+                  </button>
+                </div>
+
+            </div>
+
+            <div class="col-sm-6 col-social-login">
+                  <p><button class="btn btn-default btn-lg btn-social-login" type="submit" name="social_auth" value="github"><i class="icon-social-login icon-social-login__github">
+                    </i>Login with GitHub</button></p>
+                  <p><button class="btn btn-default btn-lg btn-social-login" type="submit" name="social_auth" value="google"><i class="icon-social-login icon-social-login__google">
+                    </i>Login with Google</button></p>
+                  <p><button class="btn btn-default btn-lg btn-social-login" type="submit" name="social_auth" value="linkedin"><i class="icon-social-login icon-social-login__linkedin">
+                    </i>Login with LinkedIn</button></p>
+                  <p><button class="btn btn-default btn-lg btn-social-login" type="submit" name="social_auth" value="facebook"><i class="icon-social-login icon-social-login__facebook">
+                    </i>Login with Facebook</button></p>
+
+            </div>
+        </form>
+
+      </div>
+
+      <br><br>
+
+      <p>
+
+          <a href="{% url 'signup' %}">Sign Up</a>
+          ·
+          <a href="/remind">Forgot password?</a>
+
+      </p>
+
+      </div>
+    </div>
+</div>
+
+
+
+
+    <br>
+    <div class="footer">
+      <div class="container">
+
+      <p class="footer-lang-switch">
+        Language:
+        <a href="/set_lang?code=en&next=/login" class="lang-active">English</a> ·
+        <a href="/set_lang?code=uk&next=/login">Українська</a> ·
+        <a href="/set_lang?code=ru&next=/login">Русский</a>
+      </p>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+{% endblock %}

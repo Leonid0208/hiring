@@ -1,0 +1,583 @@
+
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="wrapper">
+
+
+
+
+
+<nav class="navbar navbar-inverse navbar-translucent jobs-push-navbar" role="navigation">
+  <div class="container">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Djinni</a>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+            <li>
+                <p class="login_profile">You login as {{ request.user.email }}</p>
+              </li>
+            <li>
+                <a href="{% url 'logout'  %}?next=/" class="jobs-push-login-link rounded-link">
+                  Logout
+                </a>
+              </li>
+        {% else %}
+            <li>
+        <a href="{% url 'login' %}" class="jobs-push-login-link rounded-link">
+          Log In
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'signup' %}" class="jobs-push-login-link rounded-link">
+          Sign Up
+        </a>
+      </li>
+        {% endif %}
+
+    </ul>
+
+  </div> <!-- /.container -->
+</nav>
+
+
+
+
+
+
+<div class="jobs-push-hero">
+
+  <div class="container jobs-push-hero__inner">
+
+    <div class="jobs-push-icon jobs-push-icon--preload">
+      <div class="jobs-push-icon__magic jobs-push-icon__magic--1"></div>
+      <div class="jobs-push-icon__magic jobs-push-icon__magic--2"></div>
+      <div class="jobs-push-icon__magic jobs-push-icon__magic--3"></div>
+    </div>
+
+    <h1 class="jobs-push-hero__headline">
+      Anonymous job search with Djinni
+    </h1>
+    <p class="jobs-push-hero__sub-headline">
+
+      For <span id="target">programmers</span><span id="cursor" class="blink"></span>
+    </p>
+  </div>
+
+  <div class="jobs-push-form-wrapper">
+    <div class="container" align="center">
+
+      <a class="btn btn-primary btn-lg v4__submit" href="{% url 'desk' %}">Get Started
+          <img src="{% static 'images/submit-arrow-2x.png' %}" width="29" height="18">
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="jobs-push-briefly">
+  <div class="container">
+    <p class="jobs-push-briefly__text">
+    You describe your work experience and what you're looking for
+      in a job and let companies send you their offers.
+      Only you decide who and when to open contacts.
+
+    </p>
+  </div>
+</div>
+
+<div class="jobs-push-logos">
+  <div class="container">
+    <h2 class="jobs-push-logos__title">
+      Hiring on Djinni:
+    </h2>
+    <ul class="jobs-push-logos__list">
+      <li><img src="{% static 'images/sigma%402x.png' %}" width="113" height="31" alt="Sigma"></li>
+      <li><img src="{% static 'images/globallogic%402x.png' %}" width="165" height="30" alt="GlobalLogic"></li>
+      <li><img src="{% static 'images/terrasoft%402x.png' %}" width="118" height="22" alt="Terrasoft"></li>
+      <li><img src="{% static 'images/data_art_logo%402x.png' %}" height="22" alt="DataArt"></li>
+      <li><img src="{% static 'images/ciklum%402x.png' %}" width="116" height="27" alt="Ciklum"></li>
+      <li><img src="{% static 'images/agile-engine%402x.png' %}" width="94" height="31" alt="Agile Engine"></li>
+    </ul>
+  </div>
+</div>
+
+<div class="jobs-push-faq">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-4 jobs-push-faq__item">
+        <div>
+          <img src="{% static 'images/emoji-magic%402x.png' %}" width="47" height="47" alt="✨">
+        </div>
+        <h2>Why Djinni?</h2>
+        <p>
+          Djinni gives you the opportunity to passive and anonymous
+            search - when recruiters are looking for you. This reflects the realities
+            of the labor market, where experienced professionals are in constant
+            shortage.
+        </p>
+      </div>
+
+      <div class="col-sm-4 jobs-push-faq__item">
+        <div>
+          <img src="{% static 'images/emoji-dice%402x.png' %}" width="48" height="47" alt="🎲">
+        </div>
+        <h2>How many offers will I get?</h2>
+        <p>
+        It strongly depends on your level, salary expectations and the city.
+          Every week more than 15 thousand propositions pass through Djinni.
+
+        </p>
+      </div>
+
+      <div class="col-sm-4 jobs-push-faq__item">
+        <div>
+          <img src="{% static 'images/emoji-blinker%402x.png' %}" width="42" height="48" alt="🚨">
+        </div>
+        <h2>Can my employer find me at Djinni?</h2>
+        <p>No. All profiles are anonymous.
+          You can decline a job without revealing your identity.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="jobs-push-reviews">
+  <div class="container">
+
+
+    <div class="jobs-push-reviews__controls">
+      <a class="jobs-push-reviews__control jobs-push-reviews__control--prev" href="#">←</a>
+      <a class="jobs-push-reviews__control jobs-push-reviews__control--next" href="#">→</a>
+    </div>
+
+    <div class="js-jobs-push-reviews-container">
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Awesome service, helped me to find a regular customer for a week, with whom I have been working for almost 3 years".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/scherbachenko.jpg' %}" alt="Sergey Scherbachenko">
+          Sergey Scherbachenko, Frontend Developer
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "As a lover of new and extraordinary, almost immediately after the start of the project, I started an account on Djinni. A side effect of this was an offer to a company that eventually turned out to be the coolest experience in the industry".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/mikhail.jpg' %}" alt="Michael">
+          Michael, UI Designer
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "It happens that you need to find a new job. Djinni makes your job look for you".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/kirichko.jpg' %}" alt="Sergey Kirichko">
+          Sergey Kirichko, Senior Laravel Developer
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "I've already found work twice on Djinni and every time it's better :) So keep it!"
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/tokar.jpg' %}" alt="Nazar Tokar">
+          Nazar Tokar
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Djinni is a find. There is nothing like it in Ukraine. Very convenient anonymous job search and vacancies".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/katya.jp' %}g" alt="Kate">
+          Kate, Front-end Developer, Kyiv.
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Djinni has never broght me down, or my friends, while find work. Only the best deals. Thank you for the service".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/vladimir.jpg' %}" alt="Vladimir">
+          Vladimir, PHP-developer.
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "With Djinni I found my first IT work!"
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/ordynskyi.jpg' %}" alt="Dennie Ordynskyi">
+          Dennie Ordynskyi, Product Designer
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Djinni.co is a hassle-free and HR-free way to hire a full-time developers for your product. I can’t recommend enough. Great service and 5 star support".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/zubarets.jpg' %}" alt="Yegor Zubarets">
+          Yegor Zubarets
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Both of my best works have found me here".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/ks.jpg' %}" alt="Ks">
+          Ks, programmer-pythoner
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "This is the best service to look for work with a huge number of adequate recruiters and a human attitude".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/kraev.jpg' %}" alt="Nikita Kraev">
+          Nikita Kraev
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "If I had to find a job, I would use this service :)"
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/nikita.jpg' %}" alt="Nikita">
+          Nikita, full-stack developer
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "Just the best site for job search. Here is everything: speed, search speed, caring for an employer/job seeker, a responsive support".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/mizhigurskiy.jpg' %}" alt="Nikolay Mizhigurskiy">
+          Nikolay Mizhigurskiy
+        </div>
+      </div>
+
+      <div class="jobs-push-reviews__item">
+        <blockquote class="jobs-push-reviews__quote">
+          "I'm looking for a job only here".
+        </blockquote>
+        <div class="jobs-push-reviews__author">
+          <img class="jobs-push-reviews__photo" src="{% static 'images/vlad.jpg' %}" alt="Vlad">
+          Vlad, Software Engineer
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="jobs-push-employer">
+  <div class="container">
+    <div class="jobs-push-employer__inner">
+
+      <div class="jobs-push-employer__icon">
+        <img src="{% static 'images/emoji-hat%402x.png' %}" width="63" height="53" alt="🎩">
+      </div>
+
+      <h2 class="jobs-push-employer__title">
+        Hire with Djinni</h2>
+      <p>
+      You pay
+        50%
+        of the candidate's one-month salary,
+          if you made a hire. That's it.
+          You also get a one-month guarantee – if the candidate was
+          fired or quit after working less than a month, our hiring
+          bonus is cancelled, you pay nothing.
+      </p>
+      <div>
+        <a href="/signup?type=recruiter&lang=en&from=frontpage_main" class="jobs-push-employer__cta btn btn-default btn-lg">Start hiring</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<footer class="footer-block-seo">
+    <div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-4 column">
+        <h5>
+          <a href="mailto:magic@djinni.co">magic@djinni.co</a>
+
+        </h5>
+        <ul class="list-unstyled footer-list">
+
+        <li><a href="/salaries/">Salaries</a></li>
+        <li><a href="/pricing.html">Terms of Use</a></li>
+        <li><a href="/help/privacy">Privacy</a></li>
+
+        </ul>
+        <br>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 column">
+        <h5>Jobs by location</h5>
+        <ul class="list-unstyled footer-list">
+          <li><a href="/jobs/?location=Киев">Kyiv</a></li>
+          <li><a href="/jobs/?location=Харьков">Kharkiv</a></li>
+          <li><a href="/jobs/?location=Львов">Lviv</a></li>
+          <li><a href="/jobs/?location=Одесса">Odesa</a></li>
+          <li><a href="/jobs/?location=Днепр">Dnipro</a></li>
+        </ul>
+        <br>
+      </div>
+
+      <div class="col-xs-6 col-sm-4 column">
+        <h5>By job title</h5>
+        <div class="row">
+          <div class="col-xs-6 column">
+            <ul class="list-unstyled footer-list">
+              <li><a href="/jobs/?primary_keyword=iOS">iOS</a></li>
+              <li><a href="/jobs/?primary_keyword=Android">Android</a></li>
+              <li><a href="/jobs/?primary_keyword=C%2B%2B">C++</a></li>
+              <li><a href="/jobs/?primary_keyword=Java">Java</a></li>
+              <li><a href="/jobs/?primary_keyword=.NET">.NET</a></li>
+              <li><a href="/jobs/?primary_keyword=Project%20Manager">Project Manager</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 column">
+            <ul class="list-unstyled footer-list">
+              <li><a href="/jobs/?primary_keyword=JavaScript">JavaScript</a></li>
+              <li><a href="/jobs/?primary_keyword=PHP">PHP</a></li>
+              <li><a href="/jobs/?primary_keyword=Python">Python</a></li>
+              <li><a href="/jobs/?primary_keyword=QA">QA</a></li>
+              <li><a href="/jobs/?primary_keyword=Ruby">Ruby</a></li>
+              <li><a href="/jobs/?primary_keyword=DevOps">DevOps</a></li>
+            </ul>
+          </div>
+        </div>
+        <br>
+      </div>
+
+      </div>
+
+      <div class="logorow">
+        <span class="logo"></span>
+        <a href="https://t.me/djinni_official"><i class="icon-paper-plane"></i></a>
+        <a href="http://facebook.com/djinni.co"><i class="icon-facebook"></i></a>
+        <p class="copyright">
+
+
+            <a href="/set_lang?code=uk&next=/" rel="nofollow">Українська</a>
+
+
+            <a href="/set_lang?code=ru&next=/" rel="nofollow">Русский</a>
+
+          <span>© 2020 Djinni.co</span>
+        </p>
+      </div>
+
+    </div>
+</footer>
+
+
+
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script>
+  // Wait until page is loaded, than play animation
+  $(window).load(function() {
+    $('.jobs-push-icon').removeClass('jobs-push-icon--preload');
+  });
+
+  $(function(){
+    $('.js-jobs-push-reviews-container').slick({
+      infinite: true,
+      autoplay: true,
+      autoplaySpeed: 8000,
+      prevArrow: '.jobs-push-reviews__control--prev',
+      nextArrow: '.jobs-push-reviews__control--next'
+    });
+  });
+
+
+  // typewriter script
+
+  (function ($) {
+    // writes the string
+    //
+    // @param jQuery $target
+    // @param String str
+    // @param Numeric cursor
+    // @param Numeric delay
+    // @param Function cb
+    // @return void
+    function typeString($target, str, cursor, delay, cb) {
+      $target.html(function (_, html) {
+        return html + str[cursor];
+      });
+
+      if (cursor < str.length - 1) {
+        setTimeout(function () {
+          typeString($target, str, cursor + 1, delay, cb);
+        }, delay);
+      }
+      else {
+        cb();
+      }
+    }
+
+    // clears the string
+    //
+    // @param jQuery $target
+    // @param Numeric delay
+    // @param Function cb
+    // @return void
+    function deleteString($target, delay, cb) {
+      var length;
+
+      $target.html(function (_, html) {
+        length = html.length;
+        return html.substr(0, length - 1);
+      });
+
+      if (length > 1) {
+        setTimeout(function () {
+          deleteString($target, delay, cb);
+        }, delay);
+      }
+      else {
+        cb();
+      }
+    }
+
+    // jQuery hook
+    $.fn.extend({
+      teletype: function (opts) {
+        var settings = $.extend({}, $.teletype.defaults, opts);
+
+        return $(this).each(function () {
+          (function loop($tar, idx) {
+            // type
+            typeString($tar, settings.text[idx], 0, settings.delay, function () {
+              // delete
+              setTimeout(function () {
+                deleteString($tar, settings.delay, function () {
+                  loop($tar, (idx + 1) % settings.text.length);
+                });
+              }, settings.pause);
+            });
+
+          }($(this), 0));
+        });
+      }
+    });
+
+    // plugin defaults
+    $.extend({
+      teletype: {
+        defaults: {
+          delay: 100,
+          pause: 3000,
+          text: []
+        }
+      }
+    });
+  }(jQuery));
+
+  $('#target').text('');
+
+  $('#target').teletype({
+    text: [
+      "programmers.",
+      "testers.",
+      "DevOps.",
+      "UX/UI designers.",
+      "PM.",
+      "everyone who works in IT.",
+    ]
+  });
+
+  $('#cursor').teletype({
+    text: ['|'],
+    delay: 0,
+    pause: 500
+  });
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.0/dist/sockjs.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/centrifuge@2.6.4/dist/centrifuge.min.js" crossorigin="anonymous"></script>
+<script>
+var centrifuge = new Centrifuge('https://push.djinni.co/connection/sockjs', {sockjsTransports:['websocket', 'xhr-polling', 'jsonp-polling']});
+centrifuge.connect();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script id="IntercomSettingsScriptTag">
+    window.intercomSettings = {
+      app_id: "cg6zpunb",
+      language_override: 'en',
+      custom_launcher_selector: "#intercom-link",
+
+    };
+  </script>
+
+
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 1068683888;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<div style="display:none">
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+</div>
+<noscript>
+<div style="display:none">
+<img height="1" width="1" style="border-style:none;" alt src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1068683888/?value=0&amp;guid=ON&amp;script=0">
+</div>
+</noscript>
+
+  </div>
+{% endblock %}

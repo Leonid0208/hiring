@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../fonts/material-icons.woff2") format("woff2"), url("../fonts/material-icons.woff") format("woff");
+}
+.material-icons {
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  font-size: 1.25rem;
+  letter-spacing: normal;
+  text-transform: none;
+
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga";
+
+  /* Commented out to match behaviour with prev icon font */
+  display: inline-block;
+  /* font-size: 24px; */
+  transform: translateY(2px);
+  
+}
+
+.login_profile{
+  display: inline-block;
+  color: white;
+  padding: 13px;
+}
+
+.chat__header {
+  text-align: center;
+}
+
+.chat__item {
+  display: flex;
+  align-items: flex-start;
+}
+
+.chat__person-avatar {
+  border-radius: 50%;
+}
+
+.chat__messages {
+  margin-left: 10px;
+}
+
+.chat__message {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.chat__message-content {
+  border-radius: 5px;
+  padding: 7px;
+  background-color: #ccc;
+  display: inline-block;
+
+  margin-left: 5px;
+}
+
+.chat__item--responder {
+  flex-direction: row-reverse;
+}
+
+  .chat__item--responder .chat__message {
+    flex-direction: row-reverse;
+  }
+
+  .chat__item--responder .chat__message-content {
+    margin-left: 0;
+    margin-right: 5px;
+  }
