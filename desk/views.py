@@ -1,11 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render, reverse
 from django.views.generic import View
-from .models import Chat, Candidate
+from .models import Chat, Candidate, Message
 from .forms import MessageForm, CreateResumeForm
 from django.db.models import Count
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.mail import send_mail
+from app.models import CustomUser
+from hiring.settings import DEFAULT_FROM_EMAIL
 
 
 def main(request):
@@ -47,8 +50,39 @@ class MessagesView(LoginRequiredMixin, View):
             message = form.save(commit=False)
             message.chat_id = chat_id
             message.author = request.user
+            chat = Chat.objects.filter(id=chat_id)[0]
+            if Message.objects.filter(chat=chat_id).count() == 0:
+                users = chat.members.all()
+                if users[0] == request.user:
+                    user = users[1]
+                else:
+                    user = users[0]
+                # user = CustomUser.objects.filter(id=user_id)[0]
+                username = user.username
+                email = user.email
+                send_mail(
+                    'ITBerth Notification',
+                    '{name}, you have message from {name_from} {url}'.format(name=username, name_from=request.user.username, url=request.META['HTTP_HOST'] + chat.get_absolute_url()),
+                    DEFAULT_FROM_EMAIL,
+                    [email],
+                    fail_silently=False
+                ) 
             message.save()
+
         return redirect(reverse('messages', kwargs={'chat_id': chat_id}))
+
+
+class PostView(View):
+    def get(self, request, post_id):
+        post = Candidate.objects.get(id=post_id)
+        return render(
+            request,
+            'desk/resume_page.html',
+            {
+                'post': post,
+            }
+        )
+
 
 
 class CreateDialogView(LoginRequiredMixin, View):
@@ -58,6 +92,18 @@ class CreateDialogView(LoginRequiredMixin, View):
             chat = Chat.objects.create()
             chat.members.add(request.user)
             chat.members.add(user_id)
+            chat.save()
+
+            # user = CustomUser.objects.filter(id=user_id)[0]
+            # username = user.username
+            # email = user.email
+            # send_mail(
+            #     'ITBerth Notification',
+            #     '{name}, you have message from {name_from} {url}'.format(name=username, name_from=request.user.username, url=request.META['HTTP_HOST'] + chat.get_absolute_url()),
+            #     DEFAULT_FROM_EMAIL,
+            #     [email],
+            #     fail_silently=False
+            # )
         else:
             chat = chats.first()
         return redirect(reverse('messages', kwargs={'chat_id': chat.id}))
@@ -72,7 +118,7 @@ class CreateResume(LoginRequiredMixin, View):
             return HttpResponse('Go away')
 
     def post(self, request):
-        create_form = CreateResumeForm(request.POST)
+        create_form = CreateResumeForm(request.POST, request.FILES or None)
         if create_form.is_valid():
             resume = create_form.save(commit=False)
             resume.user = request.user

@@ -4,6 +4,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import reverse
 from app.models import CustomUser
+from ckeditor.fields import RichTextField
+from django.core.exceptions import ValidationError
 
 
 class Chat(models.Model):
@@ -40,13 +42,30 @@ class Message(models.Model):
         return self.message
 
 
+def user_directory_path(instance, filename):
+  
+    # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
+    return 'user_{0}/{1}'.format(instance.user.username, filename)
+
+
+def file_size(value):
+    limit = 1 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError('File too large. Size should not exceed 1 MiB.')
+
+
 class Candidate(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     location = models.CharField(max_length=150)
     salary = models.IntegerField()
     year_experience = models.IntegerField()
-    description = models.TextField()
+    description = RichTextField()
+    addition = RichTextField()
+    file = models.FileField(blank=True, null=True, default=None, upload_to=user_directory_path, validators=[file_size])
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('post', kwargs={'post_id': self.pk})

@@ -13,5 +13,5 @@ class MessageForm(ModelForm):
 class CreateResumeForm(ModelForm):
     class Meta:
         model = Candidate
-        fields = ('title', 'location', 'salary', 'year_experience', 'description')
+        fields = ('title', 'location', 'salary', 'year_experience', 'description', 'addition', 'file')
 

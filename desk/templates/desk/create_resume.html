@@ -36,7 +36,7 @@
 
       <div class="row">
 
-        <form method="post" action="{% url 'create_resume' %}">
+        <form method="post" action="{% url 'create_resume' %}" enctype="multipart/form-data">
             {% csrf_token %}
 {#            {{ form }}#}
 
@@ -55,6 +55,7 @@
                     </div>
                 {% endfor %}
             {% endif %}
+            {{ form.media }}
             {% for field in form %}
                 <div class="fieldWrapper">
                     {{ field.errors }}

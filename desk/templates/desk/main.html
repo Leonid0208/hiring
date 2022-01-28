@@ -49,22 +49,6 @@
 
 <div class="container">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="./Candidates - Djinni_files/trackCandidatesFiltersJinjaDesktop.js.Без названия"></script>
     <div id="old_search_header" class="page-header dropdown-candidates-wrapper">
       <h1>Candidates&nbsp;<span class="small text-muted">18207</span>
@@ -173,7 +157,6 @@
 {#        </form>#}
 
 
-        <hr style="margin-top:0">
 
 
 
@@ -181,67 +164,7 @@
 
 
 
-          <div class="candidate-header">
-    <div class="pull-right candidate-details mobile-hidden" style="color:#aaa;">
 
-
-
-
-
-      <small>
-
-
-          today
-
-      </small>
-    </div>
-    <h4>
-      <a class="profile" href="https://djinni.co/q/1358ada9b0/">
-        Графический дизайнер, Иллюстратор, Аниматор
-      </a>
-
-
-    </h4>
-
-    <p class="tiny-profile-details">
-
-        Azerbaijan ·
-
-
-      <span class="profile-details-salary">$2000</span>
-      ·
-
-        5
-
-          years of experience
-
-
-
-
-         ·
-
-          Advanced/Fluent
-
-
-    </p>
-  </div>
-
-
-    <p style="word-break: break-word;">Графический дизайн, Брендинг, Векторная анимация, Растровая анимация, Навыки рисования, Свободная работа в программах Adobe, Создание короткометражных фильмов, а так же их озвучка и создание саундтреков. Базовые знания в 3D (Blender).</p>
-
-
-
-    <p>Adobe Photoshop, Adobe Illustrator, 2d, Logo animation, Motion Design, Adobe After Effects, vector illustration, graphic design, character, Blender 3D, Adobe Premier Pro, FL Studio</p>
-
-
-
-    <p>Создал анимацию, которая стала очень популярна и завирусилась в нашей стране.</p>
-
-
-    <p class="info"><em>Креативная и дружная команда.</em></p>
-
-
-          <hr>
           {% for post in posts %}
                 <div class="candidate-header">
     <div class="pull-right candidate-details mobile-hidden" style="color:#aaa;">
@@ -262,7 +185,7 @@
         {% endif %}
     </div>
     <h4>
-      <a class="profile" href="#">
+      <a class="profile" href="{{ post.get_absolute_url }}">
           {{ post.title}}
       </a>
 
@@ -284,7 +207,7 @@
   </div>
 
 
-    <p style="word-break: break-word;">{{ post.description}}</p>
+    <p style="word-break: break-word;">{{ post.description|safe}}</p>
 
           {% endfor %}
 
@@ -298,14 +221,16 @@
 
       <li>
       <small style="line-height: 32px;" class="text-muted">
-        18207 candidates found. Page 1 of 1821.
+        X candidates found.
       </small>
       </li>
+        {% if request.user.account_type == 'candidate' %}
       <li class="next">
 
         <a href="{% url 'create_resume' %}">Create resume</a>
 
       </li>
+        {% endif %}
     </ul>
 
 

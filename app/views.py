@@ -27,7 +27,7 @@ def signup(request):
                 new_user = user_form.save(commit=False)
                 # Set the chosen password
                 # new_user.set_password(user_form.cleaned_data['password'])
-                new_user.username = new_user.email
+                # new_user.username = new_user.email
                 # Save the User object
                 new_user.save()
                 return redirect('login')

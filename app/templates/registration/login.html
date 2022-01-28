@@ -56,7 +56,7 @@
                 <div class="form-group">
 {#                  {{ form.username|htmlattributes:'class: form-control, type:email, name:email, placeholder:Email, id:email' }}#}
 {#                    {{ form }}#}
-                    <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Email" id="id_username">
+                    <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" placeholder="Username" id="id_username">
 
 
                   <p class="help-block" style="display: none;" id="p_empty_email">
@@ -108,7 +108,7 @@
 
           <a href="{% url 'signup' %}">Sign Up</a>
           ·
-          <a href="/remind">Forgot password?</a>
+          <a href="{% url 'reset_password' %}">Forgot password?</a>
 
       </p>
 
